@@ -1,0 +1,22 @@
+{
+  "name": "uphold-ccf",
+  "version": "0.0.1",
+  "description": "Uphold Client Credential Flow Example",
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "btoa": "^1.2.1",
+    "dotenv": "^8.2.0",
+    "js-base64": "^3.5.2",
+    "qs": "^6.9.4",
+    "require": "^2.4.20"
+  },
+  "engines": {
+    "node": ">=13.14"
+  },
+  "scripts": {
+    "run": "node index.js "
+  }
+}
