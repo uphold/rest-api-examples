@@ -1,0 +1,23 @@
+{
+  "name": "uphold-ct",
+  "version": "0.0.1",
+  "description": "Uphold rest Api test client transaction",
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "btoa": "^1.2.1",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "js-base64": "^3.5.2",
+    "lodash": "^4.17.20",
+    "qs": "^6.9.4"
+  },
+  "engines": {
+    "node": ">=13"
+  },
+  "scripts": {
+    "run": "node index.js "
+  }
+}
