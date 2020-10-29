@@ -1,0 +1,21 @@
+{
+  "name": "uphold-ccp",
+  "version": "0.0.1",
+  "description": "Uphold rest Api test client credential PAT example",
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "btoa": "^1.2.1",
+    "dotenv": "^8.2.0",
+    "js-base64": "^3.5.2",
+    "qs": "^6.9.4"
+  },
+  "engines": {
+    "node": ">=13.14"
+  },
+  "scripts": {
+    "run": "node index.js "
+  }
+}
