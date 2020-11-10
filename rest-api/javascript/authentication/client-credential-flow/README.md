@@ -1,6 +1,7 @@
 # Client credentials flow
 
-This sample project demonstrates how to authenticate in the Uphold API using the client credentials flow. For further background, please refer to the [API documentation](https://uphold.com/en/developer/api/documentation).
+This sample project demonstrates how to authenticate in the Uphold API using the [OAuth 2.0 client credentials](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) flow.
+For further background, please refer to the [API documentation](https://uphold.com/en/developer/api/documentation).
 
 ## Summary
 
@@ -13,7 +14,7 @@ This sample project performs the following actions:
 
 **Important notice:** In Uphold's production environment, client credentials authentication is only available for **business accounts**, and requires manual approval from Uphold.
 Please [contact Uphold](mailto:developer@uphold.com) to obtain this permission.
-For applications that use the sandbox environment, as is the case with this demo project, those requirements can be skipped.
+For requests made in the sandbox environment, as is the case with this demo project, those requirements can be skipped.
 
 ## Requirements
 

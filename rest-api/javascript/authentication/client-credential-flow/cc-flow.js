@@ -12,11 +12,13 @@ const { encode } = b64Pkg;
 /**
  * Dotenv configuration.
  */
+
 dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
  * Get Token.
  */
+
 export async function getToken() {
   // Base64-encoded authentication credentials
   const auth = encode(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET);
@@ -49,6 +51,7 @@ export async function getToken() {
 /**
  * Get assets.
  */
+
 export async function getAssets(token) {
   try {
     const response = await axios.get(`${process.env.BASE_URL}/v0/assets`, {
