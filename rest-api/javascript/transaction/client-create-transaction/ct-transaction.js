@@ -14,28 +14,24 @@ dotenv.config({ path: path.resolve() + "/.env" });
  */
 
 export async function createAndCommitTransaction(data = {}, myCardID = null) {
-  const options = {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
-      "content-type": "application/json",
-    },
-    data,
-    url: `${process.env.BASE_URL}/v0/me/cards/${myCardID}/transactions?commit=true`,
-  };
-
-  const response = axios(options)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      error.response.data.errors
-        ? console.log(JSON.stringify(error.response.data.errors, null, 2).error)
-        : console.log(JSON.stringify(error, null, 2).error);
-      throw error;
+  try {
+    const response = await axios.request({
+      method: "POST",
+      url: `${process.env.BASE_URL}/v0/me/cards/${myCardID}/transactions?commit=true`,
+      data,
+      headers: {
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        "content-type": "application/json",
+      },
     });
 
-  return response;
+    return response.data;
+  } catch (error) {
+    error.response.data.errors
+      ? console.log(JSON.stringify(error.response.data.errors, null, 2).error)
+      : console.log(JSON.stringify(error, null, 2).error);
+    throw error;
+  }
 }
 
 /**
@@ -44,7 +40,9 @@ export async function createAndCommitTransaction(data = {}, myCardID = null) {
 
 export async function getCardWithFunds() {
   try {
-    const response = await axios.get(`${process.env.BASE_URL}/v0/me/cards`, {
+    const response = await axios.request({
+      method: "GET",
+      url: `${process.env.BASE_URL}/v0/me/cards`,
       headers: {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
       },

@@ -38,7 +38,9 @@ export function composeErrorPage(data, state) {
 
 export async function getAssets(token) {
   try {
-    const response = await axios.get(`${process.env.BASE_URL}/v0/assets`, {
+    const response = await axios.request({
+      method: "GET",
+      url: `${process.env.BASE_URL}/v0/assets`,
       headers: {
         Authorization: `${token.token_type} ${token.access_token}`,
       },
@@ -56,30 +58,22 @@ export async function getAssets(token) {
  */
 
 export async function getToken(code) {
-  // Base64-encoded authentication credentials
-  const auth = encode(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET);
-
-  // set POST options for Axios
-  const options = {
-    method: "POST",
-    headers: {
-      Authorization: "Basic " + auth,
-      "content-type": "application/x-www-form-urlencoded",
-    },
-    data: qs.stringify({ code, grant_type: "client_credentials" }),
-    url: `${process.env.BASE_URL}/oauth2/token`,
-  };
-
-  const data = axios(options)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      error.response.data.errors
-        ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-        : console.log(JSON.stringify(error, null, 2));
-      throw error;
+  try {
+    const response = await axios.request({
+      method: "POST",
+      url: `${process.env.BASE_URL}/oauth2/token`,
+      data: qs.stringify({ code, grant_type: "client_credentials" }),
+      headers: {
+        Authorization: "Basic " + encode(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET),
+        "content-type": "application/x-www-form-urlencoded",
+      },
     });
 
-  return data;
+    return response.data;
+  } catch (error) {
+    error.response.data.errors
+      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
+      : console.log(JSON.stringify(error, null, 2));
+    throw error;
+  }
 }

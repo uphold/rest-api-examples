@@ -16,30 +16,22 @@ dotenv.config({ path: path.resolve() + "/.env" });
  */
 
 export async function getAuthenticationMethods() {
-  // Base64-encoded authentication credentials
-  const auth = encode(process.env.USERNAME + ":" + process.env.PASSWORD);
-
-  // Set GET options for Axios
-  const options = {
-    method: "GET",
-    headers: {
-      Authorization: "Basic " + auth,
-    },
-    url: `${process.env.BASE_URL}/v0/me/authentication_methods`,
-  };
-
-  const data = axios(options)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      error.response.data.errors
-        ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-        : console.log(JSON.stringify(error, null, 2));
-      throw error;
+  try {
+    const response = await axios.request({
+      method: "GET",
+      url: `${process.env.BASE_URL}/v0/me/authentication_methods`,
+      headers: {
+        Authorization: "Basic " + encode(process.env.USERNAME + ":" + process.env.PASSWORD),
+      },
     });
 
-  return data;
+    return response.data;
+  } catch (error) {
+    error.response.data.errors
+      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
+      : console.error(JSON.stringify(error, null, 2));
+    throw error;
+  }
 }
 
 /**
@@ -49,46 +41,32 @@ export async function getAuthenticationMethods() {
  */
 
 export async function createNewPAT(totp) {
-  // Base64-encoded authentication credentials
-  const auth = encode(process.env.USERNAME + ":" + process.env.PASSWORD);
-
-  let headers = {
-    "Authorization": "Basic " + auth,
+  const headers = {
+    Authorization: "Basic " + encode(process.env.USERNAME + ":" + process.env.PASSWORD),
     "content-type": "application/json",
   };
 
   // Set OTP headers if the totp parameter is passed.
-  const otpHeaders = {
-    "OTP-Method-Id": totp.OTPMethodId,
-    "OTP-Token": totp.OTPToken,
-  };
-
   if (totp.OTPMethodId) {
-    headers = { ...headers, ...otpHeaders };
+    headers["OTP-Method-Id"] = totp.OTPMethodId;
+    headers["OTP-Token"] = totp.OTPToken;
   }
 
-  // Set post options for axios
-  const options = {
-    method: "POST",
-    headers,
-    data: {
-      description: process.env.PAT_DESCRIPTION,
-    },
-    url: `${process.env.BASE_URL}/v0/me/tokens`,
-  };
-
-  const data = axios(options)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      error.response.data.errors
-        ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-        : console.log(JSON.stringify(error, null, 2));
-      throw error;
+  try {
+    const response = await axios.request({
+      method: "POST",
+      url: `${process.env.BASE_URL}/v0/me/tokens`,
+      data: { description: process.env.PAT_DESCRIPTION },
+      headers,
     });
 
-  return data;
+    return response.data;
+  } catch (error) {
+    error.response.data.errors
+      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
+      : console.log(JSON.stringify(error, null, 2));
+    throw error;
+  }
 }
 
 /**
@@ -97,12 +75,15 @@ export async function createNewPAT(totp) {
 
 export async function getMyPATs(accessToken) {
   try {
-    const r = await axios.get(`${process.env.BASE_URL}/v0/me/tokens`, {
+    const response = await axios.request({
+      method: "GET",
+      url: `${process.env.BASE_URL}/v0/me/tokens`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return r.data;
+
+    return response.data;
   } catch (error) {
     console.log(JSON.stringify(error, null, 2));
     throw error;
