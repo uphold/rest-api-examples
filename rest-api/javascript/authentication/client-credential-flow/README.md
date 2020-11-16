@@ -18,13 +18,13 @@ For requests made in the sandbox environment, as is the case with this demo proj
 
 ## Requirements
 
-- `node` v13.14.0 +
+- Node.js v13.14.0 or later
 
 ## Setup
 
-- run `npm install` (or `yarn install`)
-- create a `.env` file based on the `.env.example` file, and populate it with the required data
+- Run `npm install` (or `yarn install`)
+- Create a `.env` file based on the `.env.example` file, and populate it with the required data
 
 ## Run
 
-- run `node index.js`
+- Run `node index.js`

@@ -10,16 +10,10 @@ import path from "path";
 import { randomBytes } from "crypto";
 import { composeErrorPage, getAssets, getToken } from "./authorization-code-flow.js";
 
-/**
- * Dotenv configuration.
- */
-
+// Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
 
-/**
- * Server configuration.
- */
-
+// Server configuration.
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
 const state = randomBytes(8).toString('hex');

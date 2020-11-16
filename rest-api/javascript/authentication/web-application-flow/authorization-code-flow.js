@@ -5,16 +5,12 @@
 import axios from "axios";
 import b64Pkg from "js-base64";
 import dotenv from "dotenv";
-import qs from "qs";
 import path from "path";
-
+import qs from "qs";
 const { encode } = b64Pkg;
 
-/**
- * Dotenv configuration.
- */
-
- dotenv.config({ path: path.resolve() + "/.env" });
+// Dotenv configuration.
+dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
  * Compose error page.
@@ -24,9 +20,7 @@ export function composeErrorPage(data, state) {
   let content = "<h1>Something went wrong.</h1>";
 
   if (data.state && data.state !== state) {
-    content +=
-      `<p>The received state (<code>${data.state}</code>)
-      does not match the expected value: <code>${state}</code>.</p>`;
+    content += `<p>The received state (${data.state}) does not match the expected value: ${state}.</p>`;
   } else if (Object.values(data).length) {
     content += "<p>Here's what Uphold's servers returned:</p>";
     content += `<pre>${JSON.stringify(data, null, 4)}</pre>`;
@@ -49,6 +43,7 @@ export async function getAssets(token) {
         Authorization: `${token.token_type} ${token.access_token}`,
       },
     });
+
     return response.data;
   } catch (error) {
     console.log(JSON.stringify(error, null, 2));

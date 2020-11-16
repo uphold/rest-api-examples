@@ -9,10 +9,7 @@ import path from "path";
 import qs from "qs";
 const { encode } = b64Pkg;
 
-/**
- * Dotenv configuration.
- */
-
+// Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
@@ -59,6 +56,7 @@ export async function getAssets(token) {
         Authorization: `${token.token_type} ${token.access_token}`,
       },
     });
+
     return response.data;
   } catch (error) {
     console.log(JSON.stringify(error, null, 2));
