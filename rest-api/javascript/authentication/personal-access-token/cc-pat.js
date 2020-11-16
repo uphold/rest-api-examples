@@ -6,8 +6,9 @@ import axios from "axios";
 import b64Pkg from "js-base64";
 import dotenv from "dotenv";
 import path from "path";
-
 const { encode } = b64Pkg;
+
+// Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
@@ -56,7 +57,7 @@ export async function createNewPAT(totp) {
     "content-type": "application/json",
   };
 
-  // Set OTP headers if the totp parameter is passed
+  // Set OTP headers if the totp parameter is passed.
   const otpHeaders = {
     "OTP-Method-Id": totp.OTPMethodId,
     "OTP-Token": totp.OTPToken,

@@ -5,8 +5,10 @@
 import { getAssets, getToken } from "./cc-flow.js";
 
 (async () => {
-  // Get `bearer` token from sandbox
+  // Get `bearer` token from sandbox.
   const token = await getToken();
-  // Log the output of an API call using the token, to confirm that it works
-  console.log(await getAssets(token));
+
+  // Test the new token by making a call to the API.
+  const assets = await getAssets(token);
+  console.log("Output from test API call:", assets[0]);
 })();

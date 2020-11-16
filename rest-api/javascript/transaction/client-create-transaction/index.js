@@ -5,11 +5,9 @@
 import _ from "lodash";
 import dotenv from "dotenv";
 import path from "path";
-import {
-  createAndCommitTransaction,
-  getCardWithFunds,
-} from "./ct-transaction.js";
+import { createAndCommitTransaction, getCardWithFunds } from "./ct-transaction.js";
 
+// Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
 
 (async () => {

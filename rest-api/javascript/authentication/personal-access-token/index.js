@@ -2,14 +2,10 @@
  * Dependencies.
  */
 
-import {
-  createNewPAT,
-  getAuthenticationMethods,
-  getMyPATs,
-} from "./cc-pat.js";
+import { createNewPAT, getAuthenticationMethods, getMyPATs } from "./cc-pat.js";
 
 (async () => {
-  // Get list of authentication methods
+  // Get list of authentication methods.
   const authMethods = await getAuthenticationMethods();
 
   // In the Sandbox environment, the special OTP value `000000` can be passed for convenience.
@@ -26,14 +22,14 @@ import {
     totp.OTPMethodId = totpCheck.id;
   }
 
-  // Create a PAT
+  // Create a PAT.
   const newPAT = await createNewPAT(totp);
 
   if (newPAT.accessToken) {
     console.log("New Personal Access Token (PAT) created with success");
     console.debug(newPAT.accessToken);
 
-    // Use the newly created PAT to list all PATs for this account
+    // Use the newly created PAT to list all PATs for this account.
     console.log("List of available PATs");
     console.log(await getMyPATs(newPAT.accessToken));
   }

@@ -3,23 +3,10 @@
  */
 
 import axios from "axios";
-import colors from "colors";
 import dotenv from "dotenv";
 import path from "path";
 
-colors.setTheme({
-  silly: "rainbow",
-  input: "grey",
-  verbose: "cyan",
-  prompt: "grey",
-  info: "green",
-  data: "grey",
-  help: "cyan",
-  warn: "yellow",
-  debug: "blue",
-  error: "red",
-});
-
+// Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
@@ -63,8 +50,10 @@ export async function getCardWithFunds() {
       },
     });
 
-    // Get the the first card with nonzero available balance
-    return response.data.filter(card => { return Number(card.available) > 0 })[0];
+    // Get the the first card with nonzero available balance.
+    return response.data.filter(card => {
+      return Number(card.available) > 0
+    })[0];
   } catch (error) {
     error.response.data.errors
       ? console.log(JSON.stringify(error.response.data.errors, null, 2).error)
