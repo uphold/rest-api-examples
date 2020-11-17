@@ -10,15 +10,21 @@ import path from "path";
 dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
- * Create and commit a transaction.
+ * Create and commit a 1 USD transaction from a specific card.
  */
 
-export async function createAndCommitTransaction(data = {}, myCardID = null) {
+export async function createAndCommitTransaction(sourceCardID = null) {
   try {
     const response = await axios.request({
       method: "POST",
-      url: `${process.env.BASE_URL}/v0/me/cards/${myCardID}/transactions?commit=true`,
-      data,
+      url: `${process.env.BASE_URL}/v0/me/cards/${sourceCardID}/transactions?commit=true`,
+      data: {
+        denomination: {
+          amount: "1",
+          currency: "USD",
+        },
+        destination: `${process.env.DESTINATION_EMAIL_ACCOUNT}`,
+      },
       headers: {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
         "content-type": "application/json",
