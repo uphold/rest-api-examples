@@ -7,15 +7,9 @@
   "type": "module",
   "dependencies": {
     "axios": "^0.20.0",
-    "btoa": "^1.2.1",
-    "dotenv": "^8.2.0",
-    "js-base64": "^3.5.2",
-    "qs": "^6.9.4"
+    "dotenv": "^8.2.0"
   },
   "engines": {
     "node": ">=13.14"
-  },
-  "scripts": {
-    "run": "node index.js "
   }
 }

@@ -3,13 +3,14 @@
  */
 
 import axios from "axios";
-import b64Pkg from "js-base64";
 import dotenv from "dotenv";
 import path from "path";
-const { encode } = b64Pkg;
 
 // Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
+
+// Authentication credentials.
+const auth = Buffer.from(process.env.USERNAME + ":" + process.env.PASSWORD).toString("base64");
 
 /**
  * Get list of authentication methods, using basic authentication (username and password).
@@ -21,7 +22,7 @@ export async function getAuthenticationMethods() {
       method: "GET",
       url: `${process.env.BASE_URL}/v0/me/authentication_methods`,
       headers: {
-        Authorization: "Basic " + encode(process.env.USERNAME + ":" + process.env.PASSWORD),
+        Authorization: `Basic ${auth}`,
       },
     });
 
@@ -42,7 +43,7 @@ export async function getAuthenticationMethods() {
 
 export async function createNewPAT(totp) {
   const headers = {
-    Authorization: "Basic " + encode(process.env.USERNAME + ":" + process.env.PASSWORD),
+    Authorization: `Basic ${auth}`,
     "content-type": "application/json",
   };
 

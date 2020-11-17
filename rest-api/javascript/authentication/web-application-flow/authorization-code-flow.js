@@ -3,14 +3,14 @@
  */
 
 import axios from "axios";
-import b64Pkg from "js-base64";
 import dotenv from "dotenv";
 import path from "path";
-import qs from "qs";
-const { encode } = b64Pkg;
 
 // Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
+
+// Authentication credentials.
+const auth = Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET).toString("base64");
 
 /**
  * Compose error page.
@@ -62,9 +62,9 @@ export async function getToken(code) {
     const response = await axios.request({
       method: "POST",
       url: `${process.env.BASE_URL}/oauth2/token`,
-      data: qs.stringify({ code, grant_type: "client_credentials" }),
+      data: `code=${code}&grant_type=client_credentials`,
       headers: {
-        Authorization: "Basic " + encode(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET),
+        Authorization: `Basic ${auth}`,
         "content-type": "application/x-www-form-urlencoded",
       },
     });
