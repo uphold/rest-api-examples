@@ -15,11 +15,11 @@ To try out each example, navigate to the corresponding folder and follow the ins
 The currently available examples are:
 
 - Authentication
-  - [OAuth: Client credentials flow](rest-api/javascript/authentication/client-credential-flow/)
-  - [OAuth: Authorization code flow](rest-api/javascript/authentication/web-application-flow/)
-  - [Personal Access Token (PAT)](rest-api/javascript/authentication/personal-access-token/)
+  - [OAuth: Client credentials flow](authentication/oauth-client-credentials/)
+  - [OAuth: Authorization code flow](authentication/oauth-authorization-code/)
+  - [Personal Access Token (PAT)](authentication/personal-access-token/)
 - Transactions
-  - [User-to-user transaction](rest-api/javascript/transaction/client-create-transaction/)
+  - [User-to-user transaction](transactions/user-to-user-transaction/)
 
 ## Contributing
 
