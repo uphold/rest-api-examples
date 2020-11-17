@@ -1,7 +1,7 @@
 {
-  "name": "uphold-ccf",
+  "name": "uphold-client-credentials-oauth-sample",
   "version": "0.0.1",
-  "description": "Uphold Client Credential Flow Example",
+  "description": "Demo project to make authenticated requests to Uphold's REST API using the client credentials OAuth flow",
   "license": "MIT",
   "main": "index.js",
   "type": "module",

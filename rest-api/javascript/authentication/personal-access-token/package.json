@@ -1,7 +1,7 @@
 {
-  "name": "uphold-ccp",
+  "name": "uphold-pat-sample",
   "version": "0.0.1",
-  "description": "Uphold rest Api test client credential PAT example",
+  "description": "Demo project to make authenticated requests to Uphold's REST API using a Personal Access Token (PAT)",
   "license": "MIT",
   "main": "index.js",
   "type": "module",

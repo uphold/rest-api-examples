@@ -1,4 +1,4 @@
-# Client credentials PAT
+# Personal Access Token (PAT)
 
 This sample project demonstrates how to authenticate in the Uphold API using a Personal Access Token (PAT).
 For further background, please refer to the [API documentation](https://uphold.com/en/developer/api/documentation)
@@ -18,12 +18,13 @@ In the Sandbox environment, the special OTP value `000000` can be passed for con
 ## Requirements
 
 - Node.js v13.14.0 or later
+- An account at <https://sandbox.uphold.com>
 
 ## Setup
 
-- Run `npm install` (or `yarn install`)
-- Create a `.env` file based on the `.env.example` file, and populate it with the required data
+- Run `npm install` (or `yarn install`).
+- Create a `.env` file based on the `.env.example` file, and populate it with the required data.
 
 ## Run
 
-- Run `node index.js`
+- Run `node index.js`.
