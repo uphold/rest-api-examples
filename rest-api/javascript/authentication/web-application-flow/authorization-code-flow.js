@@ -13,7 +13,7 @@ dotenv.config({ path: path.resolve() + "/.env" });
 const auth = Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET).toString("base64");
 
 /**
- * Compose error page.
+ * Compose error web page.
  */
 
 export function composeErrorPage(data, state) {
@@ -54,7 +54,7 @@ export async function getAssets(token) {
 }
 
 /**
- * Get Token.
+ * Exchange OAuth authorization code for an access token.
  */
 
 export async function getToken(code) {

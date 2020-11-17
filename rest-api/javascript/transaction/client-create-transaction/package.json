@@ -1,7 +1,7 @@
 {
-  "name": "uphold-ct",
+  "name": "uphold-transaction-sample",
   "version": "0.0.1",
-  "description": "Uphold rest Api test client transaction",
+  "description": "Demo project to perform a transaction from one Uphold user to another using Uphold's API",
   "license": "MIT",
   "main": "index.js",
   "type": "module",

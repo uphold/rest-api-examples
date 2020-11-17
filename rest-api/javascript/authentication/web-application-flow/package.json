@@ -1,7 +1,7 @@
 {
-    "name": "uphold-wap",
+    "name": "uphold-authorization-code-oauth-sample",
     "version": "0.0.1",
-    "description": "Uphold rest Api test web application flow example",
+    "description": "Demo project to make authenticated requests to Uphold's API using the authorization code OAuth flow",
     "license": "MIT",
     "type": "module",
     "main": "app.js",

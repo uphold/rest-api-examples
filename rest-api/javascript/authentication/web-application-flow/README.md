@@ -1,4 +1,4 @@
-# Authorization code flow
+# Authorization code OAuth flow
 
 This sample project demonstrates how a registered app can request authorization from Uphold users to perform actions on their behalf,
 by using the [authorization code OAuth flow](https://oauth.net/2/grant-types/authorization-code/).
