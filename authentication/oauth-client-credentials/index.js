@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { getUserInfo, getAccessToken } from "./cc-flow.js";
+import { getUserInfo, getAccessToken } from "./client-credentials-flow.js";
 import fs from "fs";
 
 (async () => {

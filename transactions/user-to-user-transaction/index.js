@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { createAndCommitTransaction, getCardWithFunds } from "./ct-transaction.js";
+import { createAndCommitTransaction, getCardWithFunds } from "./user-to-user-transaction.js";
 import fs from "fs";
 
 (async () => {
