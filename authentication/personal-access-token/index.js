@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { createNewPAT, getAuthenticationMethods, getUserPATs } from "./cc-pat.js";
+import { createNewPAT, getAuthenticationMethods, getUserPATs } from "./personal-access-token.js";
 import fs from "fs";
 
 (async () => {
