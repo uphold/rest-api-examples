@@ -10,6 +10,24 @@ import path from "path";
 dotenv.config({ path: path.resolve() + "/.env" });
 
 /**
+ * Format API error response for printing in console.
+ */
+
+function formatError(error) {
+  const responseStatus = `${error.response.status} (${error.response.statusText})`;
+
+  console.log(
+    `Request failed with HTTP status code ${responseStatus}`,
+    JSON.stringify({
+      url: error.config.url,
+      response: error.response.data
+    }, null, 2)
+  );
+
+  throw error;
+}
+
+/**
  * Create and commit a 1 USD transaction from a specific card.
  */
 
@@ -33,10 +51,7 @@ export async function createAndCommitTransaction(sourceCardID = null) {
 
     return response.data;
   } catch (error) {
-    error.response.data.errors
-      ? console.log(JSON.stringify(error.response.data.errors, null, 2).error)
-      : console.log(JSON.stringify(error, null, 2).error);
-    throw error;
+    formatError(error);
   }
 }
 
@@ -59,9 +74,6 @@ export async function getCardWithFunds() {
       return Number(card.available) > 0
     })[0];
   } catch (error) {
-    error.response.data.errors
-      ? console.log(JSON.stringify(error.response.data.errors, null, 2).error)
-      : console.log(JSON.stringify(error, null, 2).error);
-    throw error;
+    formatError(error);
   }
 }

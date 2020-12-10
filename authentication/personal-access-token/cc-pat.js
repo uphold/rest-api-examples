@@ -13,6 +13,24 @@ dotenv.config({ path: path.resolve() + "/.env" });
 const auth = Buffer.from(process.env.USERNAME + ":" + process.env.PASSWORD).toString("base64");
 
 /**
+ * Format API error response for printing in console.
+ */
+
+function formatError(error) {
+  const responseStatus = `${error.response.status} (${error.response.statusText})`;
+
+  console.log(
+    `Request failed with HTTP status code ${responseStatus}`,
+    JSON.stringify({
+      url: error.config.url,
+      response: error.response.data
+    }, null, 2)
+  );
+
+  throw error;
+}
+
+/**
  * Get list of authentication methods, using basic authentication (username and password).
  */
 
@@ -28,10 +46,7 @@ export async function getAuthenticationMethods() {
 
     return response.data;
   } catch (error) {
-    error.response.data.errors
-      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-      : console.error(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }
 
@@ -63,10 +78,7 @@ export async function createNewPAT(totp) {
 
     return response.data;
   } catch (error) {
-    error.response.data.errors
-      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-      : console.log(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }
 
@@ -86,7 +98,6 @@ export async function getMyPATs(accessToken) {
 
     return response.data;
   } catch (error) {
-    console.log(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }

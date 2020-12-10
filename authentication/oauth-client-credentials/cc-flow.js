@@ -13,6 +13,24 @@ dotenv.config({ path: path.resolve() + "/.env" });
 const auth = Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET).toString("base64");
 
 /**
+ * Format API error response for printing in console.
+ */
+
+function formatError(error) {
+  const responseStatus = `${error.response.status} (${error.response.statusText})`;
+
+  console.log(
+    `Request failed with HTTP status code ${responseStatus}`,
+    JSON.stringify({
+      url: error.config.url,
+      response: error.response.data
+    }, null, 2)
+  );
+
+  throw error;
+}
+
+/**
  * Get Token.
  */
 
@@ -30,10 +48,7 @@ export async function getToken() {
 
     return response.data;
   } catch (error) {
-    error.response.data.errors
-      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-      : console.log(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }
 
@@ -53,7 +68,6 @@ export async function getAssets(token) {
 
     return response.data;
   } catch (error) {
-    console.log(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }
