@@ -33,6 +33,24 @@ export function composeErrorPage(data, state) {
 }
 
 /**
+ * Format API error response for printing in console.
+ */
+
+function formatError(error) {
+  const responseStatus = `${error.response.status} (${error.response.statusText})`;
+
+  console.log(
+    `Request failed with HTTP status code ${responseStatus}`,
+    JSON.stringify({
+      url: error.config.url,
+      response: error.response.data
+    }, null, 2)
+  );
+
+  throw error;
+}
+
+/**
  * Get assets.
  */
 
@@ -48,8 +66,7 @@ export async function getAssets(token) {
 
     return response.data;
   } catch (error) {
-    console.log(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }
 
@@ -71,9 +88,6 @@ export async function getToken(code) {
 
     return response.data;
   } catch (error) {
-    error.response.data.errors
-      ? console.log(JSON.stringify(error.response.data.errors, null, 2))
-      : console.log(JSON.stringify(error, null, 2));
-    throw error;
+    formatError(error);
   }
 }
