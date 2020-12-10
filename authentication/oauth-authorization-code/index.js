@@ -8,7 +8,7 @@ import fs from "fs";
 import https from "https";
 import path from "path";
 import { randomBytes } from "crypto";
-import { composeErrorPage, getAssets, getToken } from "./authorization-code-flow.js";
+import { getAssets, getToken } from "./authorization-code-flow.js";
 
 // Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
@@ -59,6 +59,26 @@ app.get("/callback", async (req, res) => {
     <p>The OAuth authorization code has been successfully exchanged for an access token.</p>`
   );
 });
+
+/**
+ * Compose error web page.
+ */
+
+function composeErrorPage(data, state) {
+  let content = "<h1>Something went wrong.</h1>";
+
+  if (data.state && data.state !== state) {
+    content += `<p>The received state (${data.state}) does not match the expected value: ${state}.</p>`;
+  } else if (Object.values(data).length) {
+    content += "<p>Here's what Uphold's servers returned:</p>";
+    content += `<pre>${JSON.stringify(data, null, 4)}</pre>`;
+  } else {
+    content += "<p>This page should be reached at the end of an OAuth authorization process.</p>";
+    content += "<p>Please confirm that you followed the steps in the README, and check the console log.</p>";
+  }
+
+  return content;
+}
 
 /**
  * Run server.
