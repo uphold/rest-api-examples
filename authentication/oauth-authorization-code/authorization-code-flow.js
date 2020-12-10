@@ -13,26 +13,6 @@ dotenv.config({ path: path.resolve() + "/.env" });
 const auth = Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET).toString("base64");
 
 /**
- * Compose error web page.
- */
-
-export function composeErrorPage(data, state) {
-  let content = "<h1>Something went wrong.</h1>";
-
-  if (data.state && data.state !== state) {
-    content += `<p>The received state (${data.state}) does not match the expected value: ${state}.</p>`;
-  } else if (Object.values(data).length) {
-    content += "<p>Here's what Uphold's servers returned:</p>";
-    content += `<pre>${JSON.stringify(data, null, 4)}</pre>`;
-  } else {
-    content += "<p>This page should be reached at the end of an OAuth authorization process.</p>";
-    content += "<p>Please confirm that you followed the steps in the README.</p>";
-  }
-
-  return content;
-}
-
-/**
  * Format API error response for printing in console.
  */
 
