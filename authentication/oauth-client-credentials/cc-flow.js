@@ -53,14 +53,14 @@ export async function getToken() {
 }
 
 /**
- * Get assets.
+ * Get data about the currently authenticated user.
  */
 
-export async function getAssets(token) {
+export async function getUserInfo(token) {
   try {
     const response = await axios.request({
       method: "GET",
-      url: `${process.env.BASE_URL}/v0/assets`,
+      url: `${process.env.BASE_URL}/v0/me`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

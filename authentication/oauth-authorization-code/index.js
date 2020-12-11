@@ -8,7 +8,7 @@ import fs from "fs";
 import https from "https";
 import path from "path";
 import { randomBytes } from "crypto";
-import { getAssets, getToken } from "./authorization-code-flow.js";
+import { getUserInfo, getToken } from "./authorization-code-flow.js";
 
 // Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
@@ -51,9 +51,9 @@ app.get("/callback", async (req, res) => {
     const token = await getToken(req.query.code);
     console.log(`Authorization code ${req.query.code} successfully exchanged for access token:`, token);
 
-    // Test the new token by making a call to the API.
-    const assets = await getAssets(token.access_token);
-    console.log("Output from test API call:", assets[0]);
+    // Test the new token by making an authenticated call to the API.
+    const userData = await getUserInfo(token.access_token);
+    console.log("Output from test API call:", userData);
 
     res.send(
       `<h1>Success!</h1>
