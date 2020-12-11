@@ -15,6 +15,7 @@ import fs from "fs";
   try {
     // Get a new access token using client credentials authentication.
     const token = await getAccessToken();
+    console.log(`Successfully obtained a new access token:`, token.access_token);
 
     // Test the new token by making an authenticated call to the API.
     const userData = await getUserInfo(token.access_token);

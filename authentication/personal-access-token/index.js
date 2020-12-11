@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { createNewPAT, getAuthenticationMethods, getMyPATs } from "./cc-pat.js";
+import { createNewPAT, getAuthenticationMethods, getUserPATs } from "./cc-pat.js";
 import fs from "fs";
 
 (async () => {
@@ -30,17 +30,13 @@ import fs from "fs";
       totp.OTPMethodId = totpCheck.id;
     }
 
-    // Create a PAT.
-    const newPAT = await createNewPAT(totp);
+    // Get a new Personal Access Token (PAT).
+    const token = await createNewPAT(totp);
+    console.log("Successfully obtained a new Personal Access Token (PAT):", token.accessToken);
 
-    if (newPAT.accessToken) {
-      console.log("New Personal Access Token (PAT) created with success");
-      console.debug(newPAT.accessToken);
-
-      // Use the newly created PAT to list all PATs for this account.
-      console.log("List of available PATs");
-      console.log(await getMyPATs(newPAT.accessToken));
-    }
+    // Test the new token by making an authenticated call to the API.
+    const userPATs = await getUserPATs(token.accessToken);
+    console.log("Output from test API call:", userPATs);
   } catch (error) {
     // Unexpected error.
     return;
