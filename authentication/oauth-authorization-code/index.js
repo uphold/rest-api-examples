@@ -49,7 +49,7 @@ app.get("/callback", async (req, res) => {
 
     // Exchange the short-lived authorization code for a long-lived access token.
     const token = await getAccessToken(req.query.code);
-    console.log(`Authorization code ${req.query.code} successfully exchanged for access token:`, token);
+    console.log(`Successfully exchanged authorization code ${req.query.code} for access token:`, token.access_token);
 
     // Test the new token by making an authenticated call to the API.
     const userData = await getUserInfo(token.access_token);

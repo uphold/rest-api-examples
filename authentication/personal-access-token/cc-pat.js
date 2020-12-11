@@ -83,10 +83,10 @@ export async function createNewPAT(totp) {
 }
 
 /**
- * Get list of Personal Access Tokens (PATs), using a bearer token (client credentials.
+ * Get list of Personal Access Tokens (PATs), using an existing PAT.
  */
 
-export async function getMyPATs(accessToken) {
+export async function getUserPATs(accessToken) {
   try {
     const response = await axios.request({
       method: "GET",
