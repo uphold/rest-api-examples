@@ -3,8 +3,15 @@
  */
 
 import { createNewPAT, getAuthenticationMethods, getMyPATs } from "./cc-pat.js";
+import fs from "fs";
 
 (async () => {
+  // Check for the .env file.
+  if (fs.existsSync('./.env') === false) {
+    console.log("Missing .env file. Please follow the steps described in the README.");
+    return;
+  }
+
   try {
     // Get list of authentication methods.
     const authMethods = await getAuthenticationMethods();
