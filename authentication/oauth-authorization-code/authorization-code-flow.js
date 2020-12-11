@@ -34,7 +34,7 @@ function formatError(error) {
  * Exchange OAuth authorization code for an access token.
  */
 
-export async function getToken(code) {
+export async function getAccessToken(code) {
   try {
     const response = await axios.request({
       method: "POST",
@@ -56,13 +56,13 @@ export async function getToken(code) {
  * Get data about the currently authenticated user.
  */
 
-export async function getUserInfo(token) {
+export async function getUserInfo(accessToken) {
   try {
     const response = await axios.request({
       method: "GET",
       url: `${process.env.BASE_URL}/v0/me`,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 

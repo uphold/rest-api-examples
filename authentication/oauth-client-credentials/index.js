@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { getUserInfo, getToken } from "./cc-flow.js";
+import { getUserInfo, getAccessToken } from "./cc-flow.js";
 import fs from "fs";
 
 (async () => {
@@ -13,8 +13,8 @@ import fs from "fs";
   }
 
   try {
-    // Get `bearer` token from sandbox.
-    const token = await getToken();
+    // Get a new access token using client credentials authentication.
+    const token = await getAccessToken();
 
     // Test the new token by making an authenticated call to the API.
     const userData = await getUserInfo(token.access_token);

@@ -31,10 +31,10 @@ function formatError(error) {
 }
 
 /**
- * Get Token.
+ * Get a new access token, using client credentials authentication (client ID and secret).
  */
 
-export async function getToken() {
+export async function getAccessToken() {
   try {
     const response = await axios.request({
       method: "POST",
@@ -56,13 +56,13 @@ export async function getToken() {
  * Get data about the currently authenticated user.
  */
 
-export async function getUserInfo(token) {
+export async function getUserInfo(accessToken) {
   try {
     const response = await axios.request({
       method: "GET",
       url: `${process.env.BASE_URL}/v0/me`,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
