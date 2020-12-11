@@ -41,23 +41,28 @@ app.get("/", async (req, res) => {
  */
 
 app.get("/callback", async (req, res) => {
-  // Show an error page if the code wasn't returned or the state doesn't match what we sent.
-  if (!req.query.code || req.query.state !== state) {
-    res.send(composeErrorPage(req.query, state));
+  try {
+    // Show an error page if the code wasn't returned or the state doesn't match what we sent.
+    if (!req.query.code || req.query.state !== state) {
+      res.send(composeErrorPage(req.query, state));
+    }
+
+    // Exchange the short-lived authorization code for a long-lived access token.
+    const token = await getToken(req.query.code);
+    console.log(`Authorization code ${req.query.code} successfully exchanged for access token:`, token);
+
+    // Test the new token by making a call to the API.
+    const assets = await getAssets(token);
+    console.log("Output from test API call:", assets[0]);
+
+    res.send(
+      `<h1>Success!</h1>
+      <p>The OAuth authorization code has been successfully exchanged for an access token.</p>`
+    );
+  } catch (error) {
+    // Unexpected error.
+    return;
   }
-
-  // Exchange the short-lived authorization code for a long-lived access token.
-  const token = await getToken(req.query.code);
-  console.log(`Authorization code ${req.query.code} successfully exchanged for access token:`, token);
-
-  // Test the new token by making a call to the API.
-  const assets = await getAssets(token);
-  console.log("Output from test API call:", assets[0]);
-
-  res.send(
-    `<h1>Success!</h1>
-    <p>The OAuth authorization code has been successfully exchanged for an access token.</p>`
-  );
 });
 
 /**
