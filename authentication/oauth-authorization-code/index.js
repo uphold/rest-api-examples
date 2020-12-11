@@ -61,6 +61,7 @@ app.get("/callback", async (req, res) => {
     );
   } catch (error) {
     // Unexpected error.
+    res.send(composeErrorPage(error));
     return;
   }
 });
@@ -74,6 +75,18 @@ function composeErrorPage(data, state) {
 
   if (data.state && data.state !== state) {
     content += `<p>The received state (${data.state}) does not match the expected value: ${state}.</p>`;
+  } else if (data instanceof Error) {
+    const errorData = {
+      message: data.message,
+      request: {
+        url: data.config.url,
+        method: data.config.method,
+        data: data.config.data,
+        headers: data.config.headers
+      }
+    };
+    content += "<p>Here are details of the error (see also the console log):</p>";
+    content += `<pre>${JSON.stringify(errorData, null, 4)}</pre>`;
   } else if (Object.values(data).length) {
     content += "<p>Here's what Uphold's servers returned:</p>";
     content += `<pre>${JSON.stringify(data, null, 4)}</pre>`;
