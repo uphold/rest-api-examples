@@ -8,7 +8,7 @@ import fs from "fs";
 import https from "https";
 import path from "path";
 import { randomBytes } from "crypto";
-import { getUserInfo, getToken } from "./authorization-code-flow.js";
+import { getUserInfo, getAccessToken } from "./authorization-code-flow.js";
 
 // Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
@@ -48,7 +48,7 @@ app.get("/callback", async (req, res) => {
     }
 
     // Exchange the short-lived authorization code for a long-lived access token.
-    const token = await getToken(req.query.code);
+    const token = await getAccessToken(req.query.code);
     console.log(`Authorization code ${req.query.code} successfully exchanged for access token:`, token);
 
     // Test the new token by making an authenticated call to the API.
