@@ -98,6 +98,15 @@ function composeErrorPage(data, state) {
   return content;
 }
 
+/*
+ * Check for the .env file.
+ */
+
+if (fs.existsSync('./.env') === false) {
+  console.log("Missing .env file. Please follow the steps described in the README.");
+  process.exit();
+}
+
 /**
  * Run server.
  */
