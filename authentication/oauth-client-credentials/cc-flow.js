@@ -62,7 +62,7 @@ export async function getAssets(token) {
       method: "GET",
       url: `${process.env.BASE_URL}/v0/assets`,
       headers: {
-        Authorization: `${token.token_type} ${token.access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

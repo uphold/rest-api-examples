@@ -52,7 +52,7 @@ app.get("/callback", async (req, res) => {
     console.log(`Authorization code ${req.query.code} successfully exchanged for access token:`, token);
 
     // Test the new token by making a call to the API.
-    const assets = await getAssets(token);
+    const assets = await getAssets(token.access_token);
     console.log("Output from test API call:", assets[0]);
 
     res.send(

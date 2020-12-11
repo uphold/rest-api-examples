@@ -17,7 +17,7 @@ import fs from "fs";
     const token = await getToken();
 
     // Test the new token by making a call to the API.
-    const assets = await getAssets(token);
+    const assets = await getAssets(token.access_token);
     console.log("Output from test API call:", assets[0]);
   } catch (error) {
     // Unexpected error.
