@@ -59,7 +59,7 @@ export async function getToken(code) {
     const response = await axios.request({
       method: "POST",
       url: `${process.env.BASE_URL}/oauth2/token`,
-      data: `code=${code}&grant_type=client_credentials`,
+      data: `code=${code}&grant_type=authorization_code`,
       headers: {
         Authorization: `Basic ${auth}`,
         "content-type": "application/x-www-form-urlencoded",
