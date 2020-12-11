@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { getAssets, getToken } from "./cc-flow.js";
+import { getUserInfo, getToken } from "./cc-flow.js";
 import fs from "fs";
 
 (async () => {
@@ -16,9 +16,9 @@ import fs from "fs";
     // Get `bearer` token from sandbox.
     const token = await getToken();
 
-    // Test the new token by making a call to the API.
-    const assets = await getAssets(token.access_token);
-    console.log("Output from test API call:", assets[0]);
+    // Test the new token by making an authenticated call to the API.
+    const userData = await getUserInfo(token.access_token);
+    console.log("Output from test API call:", userData);
   } catch (error) {
     // Unexpected error.
     return;

@@ -31,26 +31,6 @@ function formatError(error) {
 }
 
 /**
- * Get assets.
- */
-
-export async function getAssets(token) {
-  try {
-    const response = await axios.request({
-      method: "GET",
-      url: `${process.env.BASE_URL}/v0/assets`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    formatError(error);
-  }
-}
-
-/**
  * Exchange OAuth authorization code for an access token.
  */
 
@@ -63,6 +43,26 @@ export async function getToken(code) {
       headers: {
         Authorization: `Basic ${auth}`,
         "content-type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    formatError(error);
+  }
+}
+
+/**
+ * Get data about the currently authenticated user.
+ */
+
+export async function getUserInfo(token) {
+  try {
+    const response = await axios.request({
+      method: "GET",
+      url: `${process.env.BASE_URL}/v0/me`,
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
 
