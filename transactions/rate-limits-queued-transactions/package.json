@@ -1,0 +1,16 @@
+{
+  "name": "uphold-queued-transaction-sample",
+  "version": "0.0.1",
+  "description": "Demo project to perform multiple transaction from one Uphold user to another using Uphold's API",
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bull": "^3.18.1",
+    "dotenv": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=13.14"
+  }
+}

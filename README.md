@@ -20,6 +20,7 @@ The currently available examples are:
   - [Personal Access Token (PAT)](authentication/personal-access-token/)
 - Transactions
   - [User-to-user transaction](transactions/user-to-user-transaction/)
+  - [User-to-user queued transaction](transactions/rate-limits-queued-transactions/)
 
 ## Contributing
 
