@@ -9,9 +9,6 @@ import path from "path";
 // Dotenv configuration.
 dotenv.config({ path: path.resolve() + "/.env" });
 
-// Authentication credentials.
-const auth = Buffer.from(process.env.USERNAME + ":" + process.env.PASSWORD).toString("base64");
-
 /**
  * Format API error response for printing in console.
  */
@@ -31,16 +28,40 @@ function formatError(error) {
 }
 
 /**
- * Get list of authentication methods, using basic authentication (username and password).
+ * Obtain an OAuth access token using the client credentials grant.
  */
 
-export async function getAuthenticationMethods() {
+export async function getAccessToken() {
+  const auth = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString("base64");
+
+  try {
+    const response = await axios.request({
+      method: "POST",
+      url: `${process.env.BASE_URL}/oauth2/token`,
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "content-type": "application/x-www-form-urlencoded",
+      },
+      data: "grant_type=client_credentials",
+    });
+
+    return response.data.access_token;
+  } catch (error) {
+    formatError(error);
+  }
+}
+
+/**
+ * Get list of authentication methods, using an OAuth bearer token.
+ */
+
+export async function getAuthenticationMethods(accessToken) {
   try {
     const response = await axios.request({
       method: "GET",
       url: `${process.env.BASE_URL}/v0/me/authentication_methods`,
       headers: {
-        Authorization: `Basic ${auth}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
@@ -51,14 +72,14 @@ export async function getAuthenticationMethods() {
 }
 
 /**
- * Create a Personal Access Token (PAT), using basic authentication (username and password).
+ * Create a Personal Access Token (PAT), using an OAuth bearer token.
  * The time-based one-time password (TOTP) parameter
  * is typically provided by an OTP application, e.g. Google Authenticator.
  */
 
-export async function createNewPAT(totp) {
+export async function createNewPAT(accessToken, totp) {
   const headers = {
-    Authorization: `Basic ${auth}`,
+    Authorization: `Bearer ${accessToken}`,
     "content-type": "application/json",
   };
 

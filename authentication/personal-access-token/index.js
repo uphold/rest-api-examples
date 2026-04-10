@@ -2,7 +2,7 @@
  * Dependencies.
  */
 
-import { createNewPAT, getAuthenticationMethods, getUserPATs } from "./personal-access-token.js";
+import { createNewPAT, getAccessToken, getAuthenticationMethods, getUserPATs } from "./personal-access-token.js";
 import fs from "fs";
 
 (async () => {
@@ -13,8 +13,12 @@ import fs from "fs";
   }
 
   try {
+    // Obtain an OAuth access token using client credentials.
+    const accessToken = await getAccessToken();
+    console.log("Successfully obtained an OAuth access token.");
+
     // Get list of authentication methods.
-    const authMethods = await getAuthenticationMethods();
+    const authMethods = await getAuthenticationMethods(accessToken);
 
     // In the Sandbox environment, the special OTP value `000000` can be passed for convenience.
     const totp = {
@@ -31,7 +35,7 @@ import fs from "fs";
     }
 
     // Get a new Personal Access Token (PAT).
-    const token = await createNewPAT(totp);
+    const token = await createNewPAT(accessToken, totp);
     console.log("Successfully obtained a new Personal Access Token (PAT):", token.accessToken);
 
     // Test the new token by making an authenticated call to the API.
