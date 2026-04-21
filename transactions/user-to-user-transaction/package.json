@@ -6,7 +6,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.2",
     "dotenv": "^8.2.0"
   },
   "engines": {
